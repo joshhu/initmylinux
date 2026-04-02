@@ -1,0 +1,5 @@
+{
+  "name": "initmylinux",
+  "version": "1.0.0",
+  "description": "一鍵初始化 Ubuntu 24.04 Server，包含完整開發環境、現代化 CLI 工具、VNC 桌面環境"
+}
