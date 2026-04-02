@@ -254,14 +254,27 @@ gsettings set org.gnome.desktop.background primary-color '#000000' 2>/dev/null |
 ok "桌面背景已設為黑色"
 
 # ============================================================
-# 13. 關閉系統休眠
+# 13. 安裝 Google Chrome
+# ============================================================
+info "安裝 Google Chrome..."
+if ! command -v google-chrome &>/dev/null; then
+    wget -q -O /tmp/google-chrome.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+    sudo apt install -y /tmp/google-chrome.deb > /dev/null 2>&1
+    rm -f /tmp/google-chrome.deb
+    ok "Google Chrome 安裝完成"
+else
+    ok "Google Chrome 已存在，跳過"
+fi
+
+# ============================================================
+# 14. 關閉系統休眠
 # ============================================================
 info "關閉系統休眠..."
 sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 ok "系統休眠已關閉"
 
 # ============================================================
-# 14. 設定別名（Ubuntu 套件名不同）
+# 15. 設定別名（Ubuntu 套件名不同）
 # ============================================================
 if ! grep -q 'alias bat="batcat"' "$HOME/.zshrc"; then
     cat >> "$HOME/.zshrc" << 'EOF'
@@ -289,7 +302,7 @@ echo "  監控:     htop, btop, ncdu, duf"
 echo "  檔案:     ripgrep(rg), fd, bat, eza, jq, yq"
 echo "  網路:     curl, httpie, wget, mkcert, nmap, tailscale"
 echo "  工具:     tmux, fzf, direnv, lazygit, tldr, glow, rsync"
-echo "  桌面:     lightdm, x11vnc (VNC 遠端桌面)"
+echo "  桌面:     lightdm, x11vnc (VNC 遠端桌面), Google Chrome"
 echo ""
 echo "系統設定："
 echo "  - 桌面背景已設為黑色"

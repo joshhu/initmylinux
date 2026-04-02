@@ -106,6 +106,7 @@ Claude Code 會自動建立 SSH key、設定免密登入，然後執行完整安
 |------|------|
 | LightDM | 輕量桌面管理器 |
 | x11vnc | VNC Server（port 5900，開機自啟） |
+| Google Chrome | 網頁瀏覽器 |
 | - | 桌面背景設為純黑色 |
 
 ## myclean 主題預覽

@@ -189,13 +189,21 @@ RestartSec=3
 WantedBy=multi-user.target
 ```
 
-## 步驟 13：關閉系統休眠
+## 步驟 13：安裝 Google Chrome
+
+```bash
+wget -q -O /tmp/google-chrome.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+sudo apt install -y /tmp/google-chrome.deb
+rm -f /tmp/google-chrome.deb
+```
+
+## 步驟 14：關閉系統休眠
 
 ```bash
 sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 ```
 
-## 步驟 14：設定 Ubuntu 別名
+## 步驟 15：設定 Ubuntu 別名
 
 Ubuntu 中部分套件名與指令名不同，需加別名：
 

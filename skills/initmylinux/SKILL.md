@@ -67,8 +67,9 @@ bash setup.sh
 | 10 | 安裝開發工具 (uv, nvm, brew, gh, docker, ffmpeg) |
 | 11 | 安裝現代化 CLI 工具 + tailscale |
 | 12 | 桌面環境 (LightDM + x11vnc) |
-| 13 | 關閉系統休眠 |
-| 14 | 設定 Ubuntu 別名 (bat/fd) |
+| 13 | 安裝 Google Chrome |
+| 14 | 關閉系統休眠 |
+| 15 | 設定 Ubuntu 別名 (bat/fd) |
 
 ## 設定檔來源
 
