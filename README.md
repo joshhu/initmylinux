@@ -56,40 +56,57 @@ Claude Code 會自動建立 SSH key、設定免密登入，然後執行完整安
 ### 現代化 CLI 工具
 
 **系統監控**
-- `htop` / `btop` — 互動式行程監控
-- `ncdu` — 磁碟空間分析
-- `duf` — 現代化磁碟使用量
+
+| 工具 | 說明 |
+|------|------|
+| htop / btop | 互動式行程監控 |
+| ncdu | 磁碟空間分析 |
+| duf | 現代化磁碟使用量 |
 
 **檔案與文字處理**
-- `ripgrep` (rg) — 超快搜尋，取代 grep
-- `fd` — 現代化 find
-- `bat` — 語法高亮的 cat
-- `eza` — 現代化 ls，支援 git 狀態
-- `jq` / `yq` — JSON / YAML 處理
+
+| 工具 | 說明 |
+|------|------|
+| ripgrep (rg) | 超快搜尋，取代 grep |
+| fd | 現代化 find |
+| bat | 語法高亮的 cat |
+| eza | 現代化 ls，支援 git 狀態 |
+| jq / yq | JSON / YAML 處理 |
 
 **網路與 API**
-- `curl` / `httpie` — HTTP 請求工具
-- `wget` — 檔案下載
-- `mkcert` — 本地 HTTPS 憑證
-- `nmap` — 網路掃描
-- `tailscale` — 零設定 VPN
+
+| 工具 | 說明 |
+|------|------|
+| curl / httpie | HTTP 請求工具 |
+| wget | 檔案下載 |
+| mkcert | 本地 HTTPS 憑證 |
+| nmap | 網路掃描 |
+| [tailscale](https://tailscale.com/) | 零設定 VPN |
 
 **開發工具**
-- `tmux` — Terminal 多視窗管理
-- `fzf` — 模糊搜尋
-- `direnv` — 自動載入 .env
-- `lazygit` — Terminal 圖形化 git
+
+| 工具 | 說明 |
+|------|------|
+| tmux | Terminal 多視窗管理 |
+| fzf | 模糊搜尋 |
+| direnv | 自動載入 .env |
+| [lazygit](https://github.com/jesseduffield/lazygit) | Terminal 圖形化 git |
 
 **其他**
-- `tldr` — 簡化版 man page
-- `glow` — Terminal Markdown 渲染
-- `rsync` — 檔案同步
+
+| 工具 | 說明 |
+|------|------|
+| tldr | 簡化版 man page |
+| [glow](https://github.com/charmbracelet/glow) | Terminal Markdown 渲染 |
+| rsync | 檔案同步 |
 
 ### 桌面環境（VNC 遠端桌面）
-- **LightDM** — 輕量桌面管理器
-- **x11vnc** — VNC Server（port 5900）
-- 開機自動啟動 x11vnc 服務
-- 桌面背景設為純黑色
+
+| 工具 | 說明 |
+|------|------|
+| LightDM | 輕量桌面管理器 |
+| x11vnc | VNC Server（port 5900，開機自啟） |
+| - | 桌面背景設為純黑色 |
 
 ## myclean 主題預覽
 
