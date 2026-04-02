@@ -21,6 +21,7 @@ bash setup.sh
 ## 安裝內容
 
 ### 系統設定
+- apt update && apt upgrade（系統全面更新）
 - 主機名稱（可自訂，預設 JoshAuto）
 - DNS：8.8.8.8 / 1.1.1.1
 - 語系：zh_TW.UTF-8
