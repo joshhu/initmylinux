@@ -20,13 +20,98 @@ bash <(curl -fsSL https://raw.githubusercontent.com/joshhu/initmylinux/main/setu
 
 > **注意**：一行指令方式會自動從 GitHub 下載 `.zshrc`、`myclean.zsh-theme` 和 `x11vnc.service`。
 
-### 透過 Claude Code 遠端部署
+### 透過 AI Coding Agent 遠端部署
 
-如果你使用 Claude Code，可以直接告訴它：
+本 repo 支援主流 AI coding agent，clone 後即可作為 agent 的知識庫使用。
+只要告訴 agent：
 
 > 幫我初始化 IP 為 x.x.x.x 的 Ubuntu 主機，帳號密碼是 user/pass
 
-Claude Code 會自動建立 SSH key、設定免密登入，然後執行完整安裝。
+Agent 會自動建立 SSH key、設定免密登入，然後執行完整安裝。
+
+## 在 AI Coding Agent 中使用
+
+本 repo 內建了各主流 coding agent 的指令檔，clone 到本機後，agent 會自動讀取對應的設定，理解如何執行初始化任務。
+
+### Claude Code（原生 Plugin + Skill）
+
+本 repo 本身就是一個 Claude Code plugin，包含完整的 skill 定義。
+
+**安裝方式：**
+
+```bash
+# 方法一：在專案目錄中直接使用（Claude Code 會自動偵測 .claude-plugin/）
+cd initmylinux
+claude
+
+# 方法二：加入到全域 plugin（任何目錄都可觸發）
+# 在 ~/.claude/settings.json 中加入：
+# "plugins": ["<path-to-initmylinux>"]
+```
+
+**觸發方式：** 說「初始化 Linux」、「setup ubuntu」、或提供 IP + 帳密即可。
+
+對應檔案：`.claude-plugin/plugin.json`、`skills/initmylinux/SKILL.md`、`CLAUDE.md`
+
+### Cursor
+
+Clone 本 repo 後用 Cursor 開啟，會自動載入 `.cursor/rules/initmylinux.mdc`。
+
+**安裝方式：**
+
+```bash
+git clone https://github.com/joshhu/initmylinux.git
+# 用 Cursor 開啟此資料夾
+```
+
+規則設定為 `alwaysApply: false`，當你提到初始化 Linux 或編輯 `.sh` 檔案時會自動觸發。
+
+對應檔案：`.cursor/rules/initmylinux.mdc`
+
+### GitHub Copilot（VS Code / JetBrains）
+
+Clone 本 repo 後開啟，Copilot Chat 會自動讀取 `.github/copilot-instructions.md`。
+
+**安裝方式：**
+
+```bash
+git clone https://github.com/joshhu/initmylinux.git
+# 用 VS Code 或 JetBrains IDE 開啟此資料夾
+```
+
+在 Copilot Chat 中直接詢問初始化相關問題即可。
+
+對應檔案：`.github/copilot-instructions.md`
+
+### Windsurf
+
+Clone 本 repo 後用 Windsurf 開啟，會自動載入 `.windsurfrules`。
+
+**安裝方式：**
+
+```bash
+git clone https://github.com/joshhu/initmylinux.git
+# 用 Windsurf 開啟此資料夾
+```
+
+對應檔案：`.windsurfrules`
+
+### Cline / Roo Code
+
+Clone 本 repo 後開啟，會自動載入 `.clinerules`。
+
+**安裝方式：**
+
+```bash
+git clone https://github.com/joshhu/initmylinux.git
+# 用 VS Code（已安裝 Cline 或 Roo Code 擴充）開啟此資料夾
+```
+
+對應檔案：`.clinerules`
+
+### 其他 Agent
+
+任何支援自訂 system prompt 的 agent，都可以將 `CLAUDE.md` 的內容貼入作為指令。
 
 ## 安裝了什麼？
 
@@ -106,7 +191,7 @@ Claude Code 會自動建立 SSH key、設定免密登入，然後執行完整安
 |------|------|
 | LightDM | 輕量桌面管理器 |
 | x11vnc | VNC Server（port 5900，開機自啟） |
-| Google Chrome | 網頁瀏覽器 |
+| Google Chrome / Chromium | 網頁瀏覽器（Chrome 安裝失敗自動改裝 Chromium） |
 | - | 桌面背景設為純黑色 |
 
 ## myclean 主題預覽
@@ -124,12 +209,27 @@ Claude Code 會自動建立 SSH key、設定免密登入，然後執行完整安
 
 ```
 initmylinux/
-├── setup.sh              # 主安裝腳本
-├── .zshrc                # zsh 設定檔模板
-├── myclean.zsh-theme     # oh-my-zsh 自訂主題
-├── x11vnc.service        # x11vnc systemd 服務檔
-├── CLAUDE.md             # Claude Code 指令文件
-└── README.md             # 本說明文件
+├── setup.sh                          # 主安裝腳本
+├── .zshrc                            # zsh 設定檔模板
+├── myclean.zsh-theme                 # oh-my-zsh 自訂主題
+├── x11vnc.service                    # x11vnc systemd 服務檔
+├── CLAUDE.md                         # Claude Code 專案指令
+├── README.md                         # 本說明文件
+│
+├── .claude-plugin/                   # Claude Code Plugin
+│   └── plugin.json                   #   plugin 定義
+├── skills/                           # Claude Code Skills
+│   └── initmylinux/
+│       ├── SKILL.md                  #   skill 觸發條件與流程
+│       └── references/
+│           └── setup-steps.md        #   安裝步驟詳解
+│
+├── .cursor/rules/                    # Cursor
+│   └── initmylinux.mdc              #   Cursor Rules
+├── .github/
+│   └── copilot-instructions.md       # GitHub Copilot
+├── .clinerules                       # Cline / Roo Code
+└── .windsurfrules                    # Windsurf
 ```
 
 ## 系統需求

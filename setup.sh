@@ -254,16 +254,31 @@ gsettings set org.gnome.desktop.background primary-color '#000000' 2>/dev/null |
 ok "桌面背景已設為黑色"
 
 # ============================================================
-# 13. 安裝 Google Chrome
+# 13. 安裝瀏覽器（Google Chrome，失敗則改裝 Chromium）
 # ============================================================
-info "安裝 Google Chrome..."
-if ! command -v google-chrome &>/dev/null; then
-    wget -q -O /tmp/google-chrome.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-    sudo apt install -y /tmp/google-chrome.deb > /dev/null 2>&1
-    rm -f /tmp/google-chrome.deb
-    ok "Google Chrome 安裝完成"
+if command -v google-chrome &>/dev/null || command -v chromium-browser &>/dev/null || command -v chromium &>/dev/null; then
+    ok "瀏覽器已存在，跳過"
 else
-    ok "Google Chrome 已存在，跳過"
+    info "嘗試安裝 Google Chrome..."
+    CHROME_INSTALLED=false
+    if wget -q -O /tmp/google-chrome.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" 2>/dev/null; then
+        if sudo apt install -y /tmp/google-chrome.deb > /dev/null 2>&1; then
+            CHROME_INSTALLED=true
+            ok "Google Chrome 安裝完成"
+        fi
+        rm -f /tmp/google-chrome.deb
+    fi
+
+    if [ "$CHROME_INSTALLED" = false ]; then
+        warn "Google Chrome 安裝失敗，改為安裝 Chromium..."
+        sudo apt install -y chromium-browser > /dev/null 2>&1 || \
+            sudo apt install -y chromium > /dev/null 2>&1 || \
+            sudo snap install chromium 2>/dev/null || \
+            warn "Chromium 安裝也失敗，請手動安裝瀏覽器"
+        if command -v chromium-browser &>/dev/null || command -v chromium &>/dev/null; then
+            ok "Chromium 安裝完成"
+        fi
+    fi
 fi
 
 # ============================================================
@@ -302,7 +317,7 @@ echo "  監控:     htop, btop, ncdu, duf"
 echo "  檔案:     ripgrep(rg), fd, bat, eza, jq, yq"
 echo "  網路:     curl, httpie, wget, mkcert, nmap, tailscale"
 echo "  工具:     tmux, fzf, direnv, lazygit, tldr, glow, rsync"
-echo "  桌面:     lightdm, x11vnc (VNC 遠端桌面), Google Chrome"
+echo "  桌面:     lightdm, x11vnc (VNC 遠端桌面), Google Chrome / Chromium"
 echo ""
 echo "系統設定："
 echo "  - 桌面背景已設為黑色"

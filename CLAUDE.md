@@ -55,7 +55,7 @@ bash setup.sh
 - x11vnc VNC Server（port 5900，開機自啟）
 - 桌面背景設為純黑色
 - x11vnc.service 系統服務檔
-- Google Chrome 瀏覽器
+- Google Chrome 瀏覽器（失敗則自動安裝 Chromium）
 
 ## 檔案結構
 ```

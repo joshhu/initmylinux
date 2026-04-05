@@ -189,13 +189,23 @@ RestartSec=3
 WantedBy=multi-user.target
 ```
 
-## 步驟 13：安裝 Google Chrome
+## 步驟 13：安裝瀏覽器（Google Chrome / Chromium）
+
+優先安裝 Google Chrome，若失敗則自動 fallback 到 Chromium：
 
 ```bash
+# 嘗試 Google Chrome
 wget -q -O /tmp/google-chrome.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 sudo apt install -y /tmp/google-chrome.deb
 rm -f /tmp/google-chrome.deb
+
+# 若 Chrome 失敗，依序嘗試 Chromium
+sudo apt install -y chromium-browser   # Ubuntu 傳統套件名
+sudo apt install -y chromium           # 部分發行版套件名
+sudo snap install chromium             # Snap 版本（Ubuntu 24.04 常見）
 ```
+
+注意：Ubuntu 24.04 部分環境下 `chromium-browser` 套件已被 snap 版取代。
 
 ## 步驟 14：關閉系統休眠
 

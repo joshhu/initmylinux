@@ -1,0 +1,63 @@
+---
+description: 當使用者要求初始化 Linux 主機、setup ubuntu、設定新的 Linux 伺服器、或提供 IP 帳密要求遠端部署時，使用此規則
+globs:
+  - setup.sh
+  - "*.sh"
+alwaysApply: false
+---
+
+# initmylinux - Ubuntu 24.04 Server 全自動初始化
+
+## 概述
+
+將全新的 Ubuntu 24.04 Server 從零初始化為完整的開發環境。
+本 repo 包含 `setup.sh` 主腳本與所有必要設定檔。
+
+## 使用方式
+
+### 遠端部署（使用者提供 IP + 帳密）
+
+1. 產生 ed25519 SSH key 並用 `ssh-copy-id` 傳送公鑰
+2. 在 `~/.ssh/config` 新增 Host 別名
+3. 設定遠端 sudo 免密碼 (`/etc/sudoers.d/<username>`)
+4. 在遠端 clone `https://github.com/joshhu/initmylinux.git`
+5. 分段執行 `setup.sh`（跳過互動式 `read`，改由參數傳入主機名稱和密碼）
+
+### 本機直接執行
+
+```bash
+git clone https://github.com/joshhu/initmylinux.git && cd initmylinux && bash setup.sh
+```
+
+## 安裝步驟（共 15 步）
+
+1. 設定主機名稱（預設 JoshAuto）
+2. 修正 DNS（8.8.8.8 / 1.1.1.1，使用 systemd-resolved 永久設定）
+3. apt update && apt upgrade
+4. 語系 zh_TW.UTF-8
+5. 基礎套件（git, curl, zsh, autojump）
+6. 設定 zsh 為預設 shell（不可加 sudo）
+7. oh-my-zsh + 插件（zsh-completions, zsh-syntax-highlighting, zsh-autosuggestions）
+8. 部署 .zshrc + myclean 主題
+9. sudo 免密碼
+10. 開發工具（uv, nvm, brew, gh, docker, ffmpeg）
+11. 現代化 CLI 工具（htop, btop, ripgrep, fd, bat, eza, jq, yq, lazygit 等）+ tailscale
+12. 桌面環境（LightDM + x11vnc）
+13. 瀏覽器（Google Chrome，失敗則自動安裝 Chromium）
+14. 關閉系統休眠
+15. Ubuntu 別名（bat→batcat, fd→fdfind）
+
+## 重要注意事項
+
+- DNS 修正必須在安裝任何網路套件之前完成
+- `chsh` 不可用 sudo，否則只改到 root
+- Docker 安裝後需 `usermod -aG docker` 加入群組
+- x11vnc 密碼用 `x11vnc -storepasswd <password> ~/.vnc/passwd` 設定
+- 瀏覽器安裝順序：Google Chrome → chromium-browser → chromium → snap chromium
+
+## 設定檔
+
+- `setup.sh` — 主安裝腳本
+- `.zshrc` — zsh 設定檔
+- `myclean.zsh-theme` — 自訂 oh-my-zsh 主題
+- `x11vnc.service` — x11vnc systemd 服務檔
