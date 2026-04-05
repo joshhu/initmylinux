@@ -1,14 +1,14 @@
 # initmylinux
 
-Claude Code Plugin — 一鍵初始化 Ubuntu 24.04 Server，打造完整的現代化開發環境。
+Agent Skill — 一鍵初始化 Ubuntu 24.04 Server，打造完整的現代化開發環境。
 
 ## 使用方式
 
-本 repo 是一個 Claude Code Plugin，安裝後只要告訴 Claude Code：
+本 repo 是一個標準的 Agent Skill，任何支援 skill 的 AI coding agent 都可以使用。只要告訴 agent：
 
 > 幫我初始化 IP 為 x.x.x.x 的 Ubuntu 主機，帳號密碼是 user/pass
 
-Claude Code 會自動建立 SSH key、設定免密登入，然後執行完整安裝。
+Agent 會自動建立 SSH key、設定免密登入，然後執行完整安裝。
 
 ## 安裝內容
 
