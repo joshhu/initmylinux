@@ -49,7 +49,7 @@ bash setup.sh
 
 ## 安裝步驟詳解
 
-詳細的 14 個安裝步驟請參考 `references/setup-steps.md`。
+詳細的 15 個安裝步驟請參考 `refs/setup-steps.md`。
 
 摘要如下：
 
@@ -73,12 +73,12 @@ bash setup.sh
 
 ## 設定檔來源
 
-安裝腳本和設定檔皆來自 GitHub repo：
+安裝腳本和設定檔皆位於 `scripts/` 目錄：
 
-- `setup.sh` — 主安裝腳本
-- `.zshrc` — zsh 設定檔（myclean 主題、插件、PATH）
-- `myclean.zsh-theme` — 自訂 oh-my-zsh 主題
-- `x11vnc.service` — x11vnc systemd 服務檔
+- `scripts/setup.sh` — 主安裝腳本
+- `scripts/.zshrc` — zsh 設定檔（myclean 主題、插件、PATH）
+- `scripts/myclean.zsh-theme` — 自訂 oh-my-zsh 主題
+- `scripts/x11vnc.service` — x11vnc systemd 服務檔
 
 ## 遠端部署注意事項
 
@@ -98,4 +98,4 @@ bash setup.sh
 
 ### Reference Files
 
-- **`references/setup-steps.md`** — 完整 14 步驟安裝細節與指令
+- **`refs/setup-steps.md`** — 完整 15 步驟安裝細節與指令

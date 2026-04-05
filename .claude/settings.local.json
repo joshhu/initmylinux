@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -f .clinerules .windsurfrules)",
+      "Bash(rm -rf .cursor .github)",
+      "Bash(mkdir -p scripts)",
+      "Bash(mv references:*)",
+      "Bash(cp:*)"
+    ]
+  }
+}
