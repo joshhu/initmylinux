@@ -2,7 +2,7 @@
 # ============================================================
 # initmylinux - Ubuntu 24.04 Server 全自動初始化腳本
 # 用法：
-#   curl -fsSL https://raw.githubusercontent.com/joshhu/initmylinux/main/setup.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/joshhu/initmylinux/master/setup.sh | bash
 #   或者 clone 後執行：bash setup.sh
 # ============================================================
 
@@ -126,14 +126,14 @@ if [ -f "$SCRIPT_DIR/.zshrc" ]; then
     cp "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc"
 else
     warn ".zshrc 檔案不存在，從 GitHub 下載..."
-    curl -fsSL https://raw.githubusercontent.com/joshhu/initmylinux/main/.zshrc -o "$HOME/.zshrc"
+    curl -fsSL https://raw.githubusercontent.com/joshhu/initmylinux/master/.zshrc -o "$HOME/.zshrc"
 fi
 
 if [ -f "$SCRIPT_DIR/myclean.zsh-theme" ]; then
     cp "$SCRIPT_DIR/myclean.zsh-theme" "$ZSH_CUSTOM/themes/myclean.zsh-theme"
 else
     warn "myclean.zsh-theme 檔案不存在，從 GitHub 下載..."
-    curl -fsSL https://raw.githubusercontent.com/joshhu/initmylinux/main/myclean.zsh-theme -o "$ZSH_CUSTOM/themes/myclean.zsh-theme"
+    curl -fsSL https://raw.githubusercontent.com/joshhu/initmylinux/master/myclean.zsh-theme -o "$ZSH_CUSTOM/themes/myclean.zsh-theme"
 fi
 ok ".zshrc 和主題部署完成"
 
@@ -241,7 +241,7 @@ X11VNC_SRC="$SCRIPT_DIR/x11vnc.service"
 if [ ! -f "$X11VNC_SRC" ]; then
     warn "x11vnc.service 不存在，從 GitHub 下載..."
     X11VNC_SRC=$(mktemp)
-    curl -fsSL https://raw.githubusercontent.com/joshhu/initmylinux/main/x11vnc.service -o "$X11VNC_SRC"
+    curl -fsSL https://raw.githubusercontent.com/joshhu/initmylinux/master/x11vnc.service -o "$X11VNC_SRC"
 fi
 # 服務以 root 執行，需填入實際使用者才找得到 ~/.vnc/passwd
 sed "s|__USER__|$(whoami)|g" "$X11VNC_SRC" | sudo tee /etc/systemd/system/x11vnc.service > /dev/null
