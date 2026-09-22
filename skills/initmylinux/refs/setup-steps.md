@@ -126,6 +126,8 @@ sudo apt install -y docker.io
 sudo usermod -aG docker $(whoami)
 ```
 
+若系統已預裝 Docker（如 DGX OS），仍需檢查並把使用者加入 docker 群組。
+
 ### ffmpeg / ffprobe
 ```bash
 sudo apt install -y ffmpeg
@@ -156,8 +158,8 @@ curl -fsSL https://tailscale.com/install.sh | sh
 # 安裝
 sudo apt install -y lightdm x11vnc
 
-# 部署 x11vnc.service
-sudo cp x11vnc.service /etc/systemd/system/
+# 部署 x11vnc.service（將 __USER__ 替換為實際使用者）
+sed "s|__USER__|$(whoami)|g" x11vnc.service | sudo tee /etc/systemd/system/x11vnc.service > /dev/null
 
 # 設定 VNC 密碼
 mkdir -p ~/.vnc
@@ -181,7 +183,8 @@ After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/x11vnc -display :0 -auth guess -forever -loop -noxdamage -repeat -rfbauth /home/%i/.vnc/passwd -rfbport 5900 -shared
+# rfbauth 路徑中的使用者名稱佔位字串，由 setup.sh 部署時替換
+ExecStart=/usr/bin/x11vnc -display :0 -auth guess -forever -loop -noxdamage -repeat -rfbauth /home/__USER__/.vnc/passwd -rfbport 5900 -shared
 Restart=on-failure
 RestartSec=3
 

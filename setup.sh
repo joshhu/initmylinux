@@ -187,10 +187,15 @@ ok "gh 安裝完成"
 info "安裝 Docker..."
 if ! command -v docker &>/dev/null; then
     sudo apt install -y docker.io > /dev/null 2>&1
-    sudo usermod -aG docker "$(whoami)"
-    ok "Docker 安裝完成（需重新登入以套用 docker 群組）"
+    ok "Docker 安裝完成"
 else
-    ok "Docker 已存在，跳過"
+    ok "Docker 已存在，跳過安裝"
+fi
+
+# 預裝 Docker 的系統（如 DGX OS）也要把使用者加入 docker 群組
+if getent group docker &>/dev/null && ! id -nG "$(whoami)" | grep -qw docker; then
+    sudo usermod -aG docker "$(whoami)"
+    ok "已將 $(whoami) 加入 docker 群組（需重新登入生效）"
 fi
 
 # --- ffmpeg / ffprobe ---
@@ -230,12 +235,14 @@ ok "LightDM 和 x11vnc 安裝完成"
 
 # 部署 x11vnc.service
 info "設定 x11vnc 為系統服務..."
-if [ -f "$SCRIPT_DIR/x11vnc.service" ]; then
-    sudo cp "$SCRIPT_DIR/x11vnc.service" /etc/systemd/system/x11vnc.service
-else
+X11VNC_SRC="$SCRIPT_DIR/x11vnc.service"
+if [ ! -f "$X11VNC_SRC" ]; then
     warn "x11vnc.service 不存在，從 GitHub 下載..."
-    sudo curl -fsSL https://raw.githubusercontent.com/joshhu/initmylinux/main/x11vnc.service -o /etc/systemd/system/x11vnc.service
+    X11VNC_SRC=$(mktemp)
+    curl -fsSL https://raw.githubusercontent.com/joshhu/initmylinux/main/x11vnc.service -o "$X11VNC_SRC"
 fi
+# 服務以 root 執行，需填入實際使用者才找得到 ~/.vnc/passwd
+sed "s|__USER__|$(whoami)|g" "$X11VNC_SRC" | sudo tee /etc/systemd/system/x11vnc.service > /dev/null
 
 # 設定 VNC 密碼目錄
 mkdir -p "$HOME/.vnc"

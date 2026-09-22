@@ -4,7 +4,8 @@ After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/x11vnc -display :0 -auth guess -forever -loop -noxdamage -repeat -rfbauth /home/%i/.vnc/passwd -rfbport 5900 -shared
+# rfbauth 路徑中的使用者名稱佔位字串，由 setup.sh 部署時替換
+ExecStart=/usr/bin/x11vnc -display :0 -auth guess -forever -loop -noxdamage -repeat -rfbauth /home/__USER__/.vnc/passwd -rfbport 5900 -shared
 Restart=on-failure
 RestartSec=3
 
