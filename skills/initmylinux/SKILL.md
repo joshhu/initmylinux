@@ -57,7 +57,7 @@ bash setup.sh
 |------|------|
 | 1 | 設定主機名稱 |
 | 2 | 修正 DNS (8.8.8.8 / 1.1.1.1) |
-| 3 | apt update && apt upgrade |
+| 3 | apt update && apt full-upgrade |
 | 4 | 設定語系 zh_TW.UTF-8 |
 | 5 | 安裝基礎套件 (git, curl, zsh, autojump) |
 | 6 | 設定 zsh 為預設 shell |
@@ -87,7 +87,7 @@ bash setup.sh
 - `chsh` 指令不可用 sudo，否則只會改到 root
 - Docker 安裝後需將使用者加入 docker 群組
 - x11vnc 密碼用 `x11vnc -storepasswd <password> ~/.vnc/passwd` 非互動式設定
-- `apt upgrade` 使用 `-y` 自動確認
+- 系統更新用 `apt full-upgrade -y`，不可用 `apt upgrade`：後者會卡住 kernel 對應的驅動模組（DGX Spark 會因此沒有 GPU 驅動、進不了桌面）
 
 ## 驗證
 

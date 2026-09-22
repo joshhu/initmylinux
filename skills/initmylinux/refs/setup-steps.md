@@ -28,8 +28,11 @@ sudo systemctl restart systemd-resolved
 
 ```bash
 sudo apt update -qq
-sudo apt upgrade -y
+sudo apt full-upgrade -y
 ```
+
+必須用 `full-upgrade`：一般 `upgrade` 不會移除套件，kernel 升級時會把 NVIDIA 驅動等模組卡住，
+導致新 kernel 沒有 GPU 驅動（DGX Spark 開機後 X 出現 `no screens found`、進不了桌面）。
 
 ## 步驟 4：設定語系
 

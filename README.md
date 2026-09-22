@@ -13,7 +13,7 @@ Agent 會自動建立 SSH key、設定免密登入，然後執行完整安裝。
 ## 安裝內容
 
 ### 系統設定
-- `apt update && apt upgrade` 系統全面更新
+- `apt update && apt full-upgrade` 系統全面更新
 - 自訂主機名稱（預設 JoshAuto）
 - DNS 設定為 8.8.8.8 / 1.1.1.1
 - 語系 `zh_TW.UTF-8`

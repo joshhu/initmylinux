@@ -62,7 +62,9 @@ ok "DNS 設定完成 (8.8.8.8 / 1.1.1.1)"
 # ============================================================
 info "更新系統套件..."
 sudo apt update -qq
-sudo apt upgrade -y
+# 用 full-upgrade：kernel 升級時才會一併換掉舊的驅動模組（如 DGX Spark 的 NVIDIA 驅動），
+# 一般 upgrade 會把驅動卡住，造成新 kernel 沒有 GPU 驅動
+sudo apt full-upgrade -y
 ok "系統更新完成"
 
 # ============================================================
